@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Yusuf Soetan — Software Engineer</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;1,300&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet"/>
+<style>
+:root{--bg:#0a0a08;--surface:#111110;--border:#222220;--accent:#c8f03e;--accent2:#f0a03e;--text:#e8e8e2;--muted:#666660;--card:#161614;--sidebar-w:72px;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'DM Mono',monospace;font-size:14px;line-height:1.6;overflow-x:hidden;cursor:none;}
+body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:9990;opacity:.35;}
+#cur{width:10px;height:10px;background:var(--accent);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transition:transform .15s;mix-blend-mode:difference;}
+#cur-ring{width:34px;height:34px;border:1px solid var(--accent);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9998;opacity:.45;transition:transform .3s,opacity .3s;}
+/* SIDEBAR */
+#sidebar{position:fixed;left:0;top:0;bottom:0;width:var(--sidebar-w);background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:28px 0;z-index:200;}
+.sb-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:15px;color:var(--text);text-decoration:none;}
+.sb-logo span{color:var(--accent);}
+.sb-nav{display:flex;flex-direction:column;align-items:center;gap:5px;}
+.snav{width:44px;height:44px;display:flex;align-items:center;justify-content:center;border-radius:4px;border:1px solid transparent;cursor:pointer;background:none;color:var(--muted);font-size:13px;transition:all .2s;position:relative;text-decoration:none;}
+.snav:hover,.snav.active{color:var(--accent);border-color:var(--border);background:var(--card);}
+.snav .tt{position:absolute;left:56px;top:50%;transform:translateY(-50%);background:var(--card);border:1px solid var(--border);color:var(--text);font-size:11px;letter-spacing:1px;text-transform:uppercase;padding:6px 12px;border-radius:3px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .2s;font-family:'DM Mono',monospace;}
+.snav:hover .tt{opacity:1;}
+.sn-dot{width:5px;height:5px;border-radius:50%;background:var(--accent);position:absolute;right:8px;top:8px;display:none;}
+.snav.active .sn-dot{display:block;}
+.sb-bottom{display:flex;flex-direction:column;align-items:center;gap:14px;}
+.sb-soc{writing-mode:vertical-rl;font-size:10px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;text-decoration:none;transition:color .2s;}
+.sb-soc:hover{color:var(--accent);}
+/* MAIN */
+#main{margin-left:var(--sidebar-w);}
+.pg{min-height:100vh;padding:0 80px;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden;}
+.pg+.pg{border-top:1px solid var(--border);}
+.gbg{position:absolute;inset:0;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:60px 60px;opacity:.22;pointer-events:none;}
+/* HERO */
+.hero-inner{display:grid;grid-template-columns:1fr 400px;gap:60px;align-items:center;padding:80px 0;}
+.hero-ey{display:inline-flex;align-items:center;gap:8px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:26px;}
+.hero-ey::before{content:'';width:20px;height:1px;background:var(--accent);}
+.hero-name{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(54px,6.5vw,94px);line-height:.92;letter-spacing:-4px;color:var(--text);}
+.hero-name .il{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:var(--accent);display:block;font-size:clamp(52px,6vw,88px);}
+.hero-typed{margin-top:22px;font-size:13px;color:var(--muted);display:flex;align-items:center;gap:6px;}
+#typed{color:var(--text);}
+.cblink{display:inline-block;width:2px;height:14px;background:var(--accent);animation:blink 1s infinite;vertical-align:middle;margin-left:1px;}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+.hero-p{margin-top:22px;color:var(--muted);font-size:12px;line-height:1.9;max-width:460px;}
+.hero-btns{display:flex;gap:12px;margin-top:34px;flex-wrap:wrap;}
+.bp{background:var(--accent);color:var(--bg);padding:12px 26px;border-radius:2px;text-decoration:none;font-family:'Syne',sans-serif;font-weight:700;font-size:13px;transition:all .2s;display:inline-flex;align-items:center;gap:8px;border:none;cursor:pointer;}
+.bp:hover{background:#d9ff4e;transform:translateY(-2px);}
+.bs{border:1px solid var(--border);color:var(--text);padding:12px 26px;border-radius:2px;text-decoration:none;font-size:13px;transition:all .2s;cursor:pointer;background:none;font-family:'DM Mono',monospace;}
+.bs:hover{border-color:var(--accent);color:var(--accent);}
+/* HERO CARD */
+.hcard{background:var(--card);border:1px solid var(--border);border-radius:6px;padding:26px;position:relative;}
+.hcard::before{content:'';position:absolute;top:-1px;left:26px;right:26px;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2));}
+.ob{display:inline-flex;align-items:center;gap:8px;font-size:11px;color:var(--muted);margin-bottom:20px;}
+.ob::before{content:'';width:7px;height:7px;background:#3ef04a;border-radius:50%;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(62,240,74,.4)}50%{box-shadow:0 0 0 6px rgba(62,240,74,0)}}
+.sg{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.sb{background:var(--surface);border:1px solid var(--border);border-radius:3px;padding:13px;}
+.sn{font-family:'Syne',sans-serif;font-weight:800;font-size:25px;color:var(--accent);line-height:1;}
+.sl{font-size:10px;color:var(--muted);margin-top:2px;}
+.stk{margin-top:16px;}
+.stk-l{font-size:10px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:7px;}
+.pills{display:flex;flex-wrap:wrap;gap:5px;}
+.pill{font-size:10px;padding:3px 8px;border-radius:2px;background:var(--surface);border:1px solid var(--border);color:var(--text);}
+.pill.hi{border-color:var(--accent);color:var(--accent);}
+/* TICKER */
+.ticker-band{border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:13px 0;overflow:hidden;white-space:nowrap;background:var(--bg);}
+.ticker-i{display:inline-flex;animation:troll 22s linear infinite;}
+.ti{padding:0 34px;font-family:'Syne',sans-serif;font-weight:700;font-size:12px;letter-spacing:1px;color:var(--muted);text-transform:uppercase;}
+.ti b{color:var(--accent);margin-right:34px;}
+@keyframes troll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+/* SECTIONS */
+.sl2{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--accent);margin-bottom:10px;display:flex;align-items:center;gap:10px;}
+.sl2::after{content:'';width:30px;height:1px;background:var(--accent);}
+.st{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(32px,4vw,52px);letter-spacing:-2px;line-height:1;margin-bottom:52px;}
+.st em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:var(--muted);}
+/* ABOUT */
+#about{background:var(--surface);}
+.ag{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;}
+.at p{font-size:12px;color:var(--muted);line-height:1.9;margin-bottom:14px;}
+.at p span{color:var(--text);}
+.avs{margin-top:24px;display:flex;flex-direction:column;gap:10px;}
+.av{display:flex;align-items:center;gap:12px;padding:11px 14px;background:var(--card);border:1px solid var(--border);border-radius:3px;}
+.av-ic{font-size:15px;}
+.av-t{font-size:11px;color:var(--muted);}
+.av-t strong{color:var(--text);display:block;font-size:12px;margin-bottom:1px;}
+.ar{display:flex;flex-direction:column;gap:14px;}
+.ic{background:var(--card);border:1px solid var(--border);border-radius:4px;padding:20px 24px;}
+.ic-title{font-family:'Syne',sans-serif;font-weight:700;font-size:12px;color:var(--accent);margin-bottom:12px;letter-spacing:.5px;}
+.ir{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border);font-size:12px;}
+.ir:last-child{border-bottom:none;}
+.ir span:first-child{color:var(--muted);}
+/* SKILLS */
+.skg{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1px;background:var(--border);border:1px solid var(--border);border-radius:4px;overflow:hidden;}
+.skb{background:var(--card);padding:26px;transition:background .2s;}
+.skb:hover{background:#1a1a18;}
+.sk-ic{font-size:20px;margin-bottom:12px;display:block;}
+.sk-t{font-family:'Syne',sans-serif;font-weight:700;font-size:13px;color:var(--text);margin-bottom:12px;}
+.sk-l{list-style:none;}
+.sk-l li{font-size:11px;color:var(--muted);padding:5px 0;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;transition:color .2s;}
+.sk-l li:last-child{border-bottom:none;}
+.sk-l li::before{content:'—';color:var(--accent);font-size:10px;}
+.skb:hover .sk-l li{color:var(--text);}
+.bar-list{margin-top:36px;max-width:500px;display:flex;flex-direction:column;gap:14px;}
+.bi .bh{display:flex;justify-content:space-between;font-size:12px;margin-bottom:6px;}
+.bi .bh span:last-child{color:var(--accent);}
+.bt{height:3px;background:var(--border);border-radius:2px;overflow:hidden;}
+.bf{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:2px;width:0;transition:width 1.2s cubic-bezier(.16,1,.3,1);}
+/* PROJECTS */
+#projects{background:var(--surface);}
+.pg-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;}
+.pc{background:var(--card);border:1px solid var(--border);border-radius:4px;padding:26px;position:relative;overflow:hidden;transition:all .3s;}
+.pc:hover{border-color:var(--accent);transform:translateY(-5px);box-shadow:0 24px 60px rgba(0,0,0,.6),0 0 0 1px rgba(200,240,62,.08);}
+.pc::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent2));transform:scaleX(0);transform-origin:left;transition:transform .3s;}
+.pc:hover::after{transform:scaleX(1);}
+.pn{font-family:'Syne',sans-serif;font-weight:800;font-size:10px;letter-spacing:2px;color:var(--accent);margin-bottom:12px;opacity:.5;}
+.pt{font-family:'Syne',sans-serif;font-weight:700;font-size:17px;color:var(--text);letter-spacing:-.3px;margin-bottom:10px;line-height:1.2;}
+.pd{font-size:12px;color:var(--muted);line-height:1.8;margin-bottom:16px;}
+.ptags{display:flex;flex-wrap:wrap;gap:5px;}
+.tg{font-size:10px;padding:3px 8px;border-radius:2px;background:var(--surface);border:1px solid var(--border);color:var(--muted);letter-spacing:.5px;text-transform:uppercase;}
+/* EXPERIENCE */
+.ei{padding:28px;background:var(--card);border:1px solid var(--border);border-radius:4px;margin-bottom:14px;position:relative;transition:border-color .2s;}
+.ei:hover{border-color:rgba(200,240,62,.3);}
+.ei::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(180deg,var(--accent),var(--accent2));border-radius:3px 0 0 3px;}
+.et{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;flex-wrap:wrap;gap:8px;}
+.er{font-family:'Syne',sans-serif;font-weight:700;font-size:16px;letter-spacing:-.3px;}
+.eco{font-size:12px;color:var(--accent);margin-top:2px;}
+.eb{font-size:11px;color:var(--muted);background:var(--surface);border:1px solid var(--border);padding:4px 12px;border-radius:2px;white-space:nowrap;}
+.eps{list-style:none;}
+.eps li{font-size:12px;color:var(--muted);padding:6px 0;border-bottom:1px solid rgba(34,34,32,.5);display:flex;gap:12px;line-height:1.7;}
+.eps li:last-child{border-bottom:none;}
+.eps li::before{content:'→';color:var(--accent);font-size:11px;flex-shrink:0;margin-top:3px;}
+/* EDUCATION */
+#education{background:var(--surface);}
+.edg{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:24px;}
+.edc{background:var(--card);border:1px solid var(--border);border-radius:4px;padding:24px;position:relative;overflow:hidden;}
+.edc::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(180deg,var(--accent),var(--accent2));}
+.edd{font-family:'Syne',sans-serif;font-weight:700;font-size:14px;margin-bottom:4px;}
+.eds{font-size:12px;color:var(--accent);margin-bottom:4px;}
+.edy{font-size:11px;color:var(--muted);}
+.cr{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+.cc{background:var(--card);border:1px solid var(--border);border-radius:4px;padding:16px;text-align:center;transition:all .2s;}
+.cc:hover{border-color:var(--accent);}
+.cc .ci{font-size:20px;display:block;margin-bottom:7px;}
+.cc .cn{font-size:11px;color:var(--text);font-family:'Syne',sans-serif;font-weight:600;}
+/* CONTACT */
+.cl2{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center;}
+.cbig{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(40px,5vw,68px);letter-spacing:-3px;line-height:.93;color:var(--text);margin-bottom:24px;}
+.cbig span{color:var(--accent);display:block;}
+.csub{font-size:12px;color:var(--muted);line-height:1.8;max-width:340px;}
+.cr2{display:flex;flex-direction:column;gap:11px;}
+.ci2{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--border);border-radius:4px;padding:13px 16px;text-decoration:none;transition:all .2s;}
+.ci2:hover{border-color:var(--accent);transform:translateX(5px);}
+.ci-icon{font-size:16px;}
+.ci-l{font-size:10px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;}
+.ci-v{font-size:12px;color:var(--text);margin-top:1px;}
+/* CV MODAL */
+#cv-modal{position:fixed;inset:0;z-index:5000;background:rgba(0,0,0,.85);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;padding:24px;}
+#cv-modal.open{display:flex;}
+.cmbox{background:var(--card);border:1px solid var(--border);border-radius:6px;width:100%;max-width:740px;max-height:90vh;display:flex;flex-direction:column;overflow:hidden;}
+.cmh{display:flex;align-items:center;justify-content:space-between;padding:16px 22px;border-bottom:1px solid var(--border);flex-shrink:0;}
+.cmh-t{font-family:'Syne',sans-serif;font-weight:700;font-size:14px;}
+.cma{display:flex;gap:8px;align-items:center;}
+.cdl{background:var(--accent);color:var(--bg);padding:7px 16px;border-radius:2px;font-family:'Syne',sans-serif;font-weight:700;font-size:11px;display:inline-flex;align-items:center;gap:5px;transition:all .2s;cursor:pointer;border:none;}
+.cdl:hover{background:#d9ff4e;}
+.ccl{background:none;border:1px solid var(--border);color:var(--muted);width:32px;height:32px;border-radius:2px;cursor:pointer;font-size:15px;transition:all .2s;display:flex;align-items:center;justify-content:center;}
+.ccl:hover{border-color:var(--accent);color:var(--accent);}
+.cmb{padding:22px;overflow-y:auto;flex:1;}
+.cvp{background:#fff;color:#111;padding:38px 42px;border-radius:3px;font-family:'DM Mono',monospace;font-size:11.5px;line-height:1.65;}
+.cvp h1{font-family:'Syne',sans-serif;font-weight:800;font-size:21px;letter-spacing:-1px;color:#111;margin-bottom:2px;}
+.cvp .cvsub{font-size:11px;color:#555;margin-bottom:10px;}
+.cvp .cvcon{display:flex;flex-wrap:wrap;gap:10px;font-size:10.5px;color:#444;margin-bottom:16px;padding-bottom:12px;border-bottom:2px solid #111;}
+.cvsh{font-family:'Syne',sans-serif;font-weight:800;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#111;border-bottom:1px solid #ddd;padding-bottom:3px;margin:16px 0 9px;}
+.cvp p,.cvp li{color:#333;font-size:11px;}
+.cvp ul{padding-left:14px;margin-top:3px;}
+.cvp ul li{margin-bottom:3px;}
+.cvjh{display:flex;justify-content:space-between;margin-bottom:3px;}
+.cvjt{font-weight:700;color:#111;font-size:12px;}
+.cvjd{font-size:10.5px;color:#666;}
+.cvjco{font-size:10.5px;color:#444;margin-bottom:5px;}
+.cvsr{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:5px;}
+.cvsk{background:#f3f3f3;border:1px solid #ddd;font-size:10px;padding:2px 7px;border-radius:2px;color:#333;}
+.cvph{font-weight:700;font-size:12px;color:#111;margin-bottom:2px;}
+.cver{display:flex;justify-content:space-between;}
+/* FOOTER */
+footer{margin-left:var(--sidebar-w);padding:20px 80px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+footer p{font-size:11px;color:var(--muted);}
+.fl{display:flex;gap:18px;}
+.fl a,.fl button{font-size:11px;color:var(--muted);text-decoration:none;transition:color .2s;background:none;border:none;cursor:pointer;font-family:'DM Mono',monospace;}
+.fl a:hover,.fl button:hover{color:var(--accent);}
+/* REVEALS */
+.rev{opacity:0;transform:translateY(20px);transition:opacity .6s,transform .6s;}
+.rev.vis{opacity:1;transform:translateY(0);}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}
+/* MOBILE */
+@media(max-width:900px){
+  :root{--sidebar-w:0px;}
+  #sidebar{display:none;}
+  #main{margin-left:0;}
+  footer{margin-left:0;padding:20px 24px;flex-direction:column;gap:10px;}
+  .pg{padding:60px 24px;}
+  .hero-inner,.ag,.cl2{grid-template-columns:1fr;}
+  .hcard,.ar{display:none;}
+  .edg{grid-template-columns:1fr;}
+  .cr{grid-template-columns:1fr 1fr;}
+  .cvp{padding:20px 16px;}
+}
+</style>
+</head>
+<body>
+
+<div id="cur"></div>
+<div id="cur-ring"></div>
+
+<!-- SIDEBAR -->
+
+<aside id="sidebar">
+  <a href="#hero" class="sb-logo">YS<span>.</span></a>
+  <nav class="sb-nav">
+    <a href="#hero"       class="snav active" data-s="hero">      <div class="sn-dot"></div>⌂<span class="tt">Home</span></a>
+    <a href="#about"      class="snav"         data-s="about">     <div class="sn-dot"></div>◉<span class="tt">About</span></a>
+    <a href="#skills"     class="snav"         data-s="skills">    <div class="sn-dot"></div>◈<span class="tt">Skills</span></a>
+    <a href="#projects"   class="snav"         data-s="projects">  <div class="sn-dot"></div>◇<span class="tt">Projects</span></a>
+    <a href="#experience" class="snav"         data-s="experience"><div class="sn-dot"></div>◎<span class="tt">Experience</span></a>
+    <a href="#education"  class="snav"         data-s="education"> <div class="sn-dot"></div>⊞<span class="tt">Education</span></a>
+    <a href="#contact"    class="snav"         data-s="contact">   <div class="sn-dot"></div>✉<span class="tt">Contact</span></a>
+  </nav>
+  <div class="sb-bottom">
+    <a href="https://github.com/Bobbytee101" target="_blank" class="sb-soc">GitHub</a>
+    <a href="mailto:soetanyusuf359@gmail.com" class="sb-soc">Email</a>
+  </div>
+</aside>
+
+<div id="main">
+
+  <!-- HERO -->
+
+  <section class="pg" id="hero">
+    <div class="gbg"></div>
+    <div class="hero-inner">
+      <div>
+        <div class="hero-ey rev">Available for opportunities</div>
+        <h1 class="hero-name rev d1">Yusuf<span class="il">Soetan</span></h1>
+        <div class="hero-typed rev d2"><span style="color:var(--muted)">~/</span>&nbsp;<span id="typed"></span><span class="cblink"></span></div>
+        <p class="hero-p rev d3">Software Engineer specializing in full-stack development with C#, .NET, and Vue.js. I architect scalable APIs, responsive UIs, and production-grade systems that solve real business problems.</p>
+        <div class="hero-btns rev d4">
+          <a href="#projects" class="bp">View Projects →</a>
+          <button class="bs" onclick="openCV()">📄 View / Download CV</button>
+          <a href="#contact" class="bs">Get in Touch</a>
+        </div>
+      </div>
+      <div class="rev d2">
+        <div class="hcard">
+          <div class="ob">Open to work · Lagos, NG</div>
+          <div class="sg">
+            <div class="sb"><div class="sn">2+</div><div class="sl">Yrs Experience</div></div>
+            <div class="sb"><div class="sn">6+</div><div class="sl">Projects Built</div></div>
+            <div class="sb"><div class="sn">Full</div><div class="sl">Stack Dev</div></div>
+            <div class="sb"><div class="sn">3+</div><div class="sl">Certificates</div></div>
+          </div>
+          <div class="stk">
+            <div class="stk-l">Core Stack</div>
+            <div class="pills">
+              <span class="pill hi">C#</span><span class="pill hi">.NET</span><span class="pill hi">Vue.js</span>
+              <span class="pill">SQL Server</span><span class="pill">Docker</span><span class="pill">Azure</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TICKER -->
+
+  <div class="ticker-band">
+    <div class="ticker-i">
+      <span class="ti">C# / .NET <b>✦</b></span><span class="ti">RESTful APIs <b>✦</b></span><span class="ti">Vue.js <b>✦</b></span><span class="ti">SQL Server <b>✦</b></span><span class="ti">Docker <b>✦</b></span><span class="ti">Entity Framework <b>✦</b></span><span class="ti">JWT Auth <b>✦</b></span><span class="ti">Microservices <b>✦</b></span><span class="ti">CI/CD <b>✦</b></span><span class="ti">Azure / AWS <b>✦</b></span>
+      <span class="ti">C# / .NET <b>✦</b></span><span class="ti">RESTful APIs <b>✦</b></span><span class="ti">Vue.js <b>✦</b></span><span class="ti">SQL Server <b>✦</b></span><span class="ti">Docker <b>✦</b></span><span class="ti">Entity Framework <b>✦</b></span><span class="ti">JWT Auth <b>✦</b></span><span class="ti">Microservices <b>✦</b></span><span class="ti">CI/CD <b>✦</b></span><span class="ti">Azure / AWS <b>✦</b></span>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+
+  <section class="pg" id="about">
+    <div class="sl2 rev">Who I Am</div>
+    <h2 class="st rev">A little <em>about me</em></h2>
+    <div class="ag">
+      <div class="at rev">
+        <p>I'm a <span>Software Engineer based in Lagos, Nigeria</span>, passionate about building clean, scalable web applications. With a background in Electrical/Electronics Engineering and now pursuing a Computer Science degree, I bring strong problem-solving to every project.</p>
+        <p>I specialize in the <span>.NET / C# backend ecosystem</span> — building secure RESTful APIs, authentication systems, and data-driven backends — combined with <span>Vue.js on the frontend</span> to craft responsive, user-friendly interfaces.</p>
+        <p>I've worked with clients across various industries, delivering admin dashboards, property management platforms, and internal tools that genuinely improve their workflows.</p>
+        <div class="avs">
+          <div class="av"><span class="av-ic">⚡</span><div class="av-t"><strong>Clean, Maintainable Code</strong>SOLID principles, structured architecture</div></div>
+          <div class="av"><span class="av-ic">🎯</span><div class="av-t"><strong>User-Centered Solutions</strong>Performance & UX go hand in hand</div></div>
+          <div class="av"><span class="av-ic">🔄</span><div class="av-t"><strong>Iterative Delivery</strong>Agile mindset, continuous improvement</div></div>
+        </div>
+      </div>
+      <div class="ar rev d1">
+        <div class="ic">
+          <div class="ic-title">Personal Info</div>
+          <div class="ir"><span>Name</span><span>Yusuf Soetan</span></div>
+          <div class="ir"><span>Location</span><span>Lagos, Nigeria</span></div>
+          <div class="ir"><span>Email</span><span style="font-size:11px">soetanyusuf359@gmail.com</span></div>
+          <div class="ir"><span>Phone</span><span>+234 805 381 6187</span></div>
+          <div class="ir"><span>Availability</span><span style="color:var(--accent)">Open to Work ✓</span></div>
+          <div class="ir"><span>Type</span><span>Remote / Hybrid</span></div>
+        </div>
+        <div class="ic">
+          <div class="ic-title">Quick Links</div>
+          <div class="ir"><span>GitHub</span><a href="https://github.com/Bobbytee101" target="_blank" style="color:var(--accent);text-decoration:none;font-size:12px">Bobbytee101</a></div>
+          <div class="ir"><span>Portfolio</span><a href="https://bobbytee-portfolio.vercel.app/" target="_blank" style="color:var(--accent);text-decoration:none;font-size:11px">bobbytee-portfolio</a></div>
+        </div>
+        <button class="bp" onclick="openCV()" style="width:100%;justify-content:center;margin-top:4px;font-size:13px;">📄 View / Download CV</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+
+  <section class="pg" id="skills">
+    <div class="gbg"></div>
+    <div class="sl2 rev">Capabilities</div>
+    <h2 class="st rev">What I <em>bring</em></h2>
+    <div class="skg rev d1">
+      <div class="skb"><span class="sk-ic">⬡</span><div class="sk-t">Frontend</div><ul class="sk-l"><li>HTML5 & CSS3</li><li>JavaScript (ES6+)</li><li>Vue.js</li><li>Bootstrap / Tailwind</li><li>Responsive Design</li><li>WordPress + Elementor</li></ul></div>
+      <div class="skb"><span class="sk-ic">◈</span><div class="sk-t">Backend</div><ul class="sk-l"><li>C# & ASP.NET Core</li><li>RESTful API Design</li><li>Entity Framework & LINQ</li><li>JWT Authentication</li><li>Role-Based Auth</li><li>Microservices</li></ul></div>
+      <div class="skb"><span class="sk-ic">◇</span><div class="sk-t">Database</div><ul class="sk-l"><li>SQL Server</li><li>MySQL</li><li>Database Design</li><li>Query Optimization</li></ul></div>
+      <div class="skb"><span class="sk-ic">◎</span><div class="sk-t">DevOps & Tools</div><ul class="sk-l"><li>Git & GitHub</li><li>Docker</li><li>CI/CD (GitHub Actions)</li><li>Azure / AWS (basic)</li><li>Postman</li><li>Visual Studio</li></ul></div>
+    </div>
+    <div class="bar-list rev d2">
+      <div class="bi"><div class="bh"><span>C# / .NET</span><span>90%</span></div><div class="bt"><div class="bf" data-w="90"></div></div></div>
+      <div class="bi"><div class="bh"><span>Vue.js / JavaScript</span><span>82%</span></div><div class="bt"><div class="bf" data-w="82"></div></div></div>
+      <div class="bi"><div class="bh"><span>RESTful API Design</span><span>88%</span></div><div class="bt"><div class="bf" data-w="88"></div></div></div>
+      <div class="bi"><div class="bh"><span>SQL Server / MySQL</span><span>78%</span></div><div class="bt"><div class="bf" data-w="78"></div></div></div>
+      <div class="bi"><div class="bh"><span>Docker / CI/CD</span><span>70%</span></div><div class="bt"><div class="bf" data-w="70"></div></div></div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+
+  <section class="pg" id="projects">
+    <div class="sl2 rev">Selected Work</div>
+    <h2 class="st rev">Projects I've <em>built</em></h2>
+    <div class="pg-grid">
+      <div class="pc rev"><div class="pn">01 · BACKEND</div><div class="pt">E-Commerce REST API</div><p class="pd">Scalable e-commerce backend with product management, cart, order processing and payment integration. Secured with JWT and role-based access control.</p><div class="ptags"><span class="tg">C#</span><span class="tg">.NET Web API</span><span class="tg">JWT</span><span class="tg">RBAC</span><span class="tg">SQL Server</span></div></div>
+      <div class="pc rev d1"><div class="pn">02 · FULL STACK</div><div class="pt">Inventory Management System</div><p class="pd">Backend for tracking stock levels, supplier data and sales history — paired with a real-time admin dashboard for monitoring and reporting.</p><div class="ptags"><span class="tg">C#</span><span class="tg">ASP.NET Core</span><span class="tg">SQL Server</span><span class="tg">Dashboard</span></div></div>
+      <div class="pc rev d2"><div class="pn">03 · BACKEND</div><div class="pt">Auth & User Management API</div><p class="pd">Secure authentication with JWT tokens, refresh token rotation, password hashing, role management and policy-based authorization.</p><div class="ptags"><span class="tg">ASP.NET Core</span><span class="tg">JWT</span><span class="tg">Refresh Tokens</span><span class="tg">BCrypt</span></div></div>
+      <div class="pc rev"><div class="pn">04 · FRONTEND</div><div class="pt">Admin Dashboard UI</div><p class="pd">Responsive admin dashboard in Vue.js with dynamic charts, data tables and real-time updates. Clean modern UI for user management and analytics.</p><div class="ptags"><span class="tg">Vue.js</span><span class="tg">HTML/CSS</span><span class="tg">Charts</span><span class="tg">Responsive</span></div></div>
+      <div class="pc rev d1"><div class="pn">05 · FRONTEND</div><div class="pt">Task Management Web App</div><p class="pd">Task manager with create/update/track features, filtering, status updates, and deadline tracking — responsive and user-friendly.</p><div class="ptags"><span class="tg">Vue.js</span><span class="tg">JavaScript</span><span class="tg">CSS3</span><span class="tg">UX</span></div></div>
+      <div class="pc rev d2"><div class="pn">06 · CLIENT</div><div class="pt">Property Management System</div><p class="pd">Full-stack platform with lease tracking, task management workflows, and reporting dashboards — built and shipped for a real client.</p><div class="ptags"><span class="tg">C#</span><span class="tg">.NET</span><span class="tg">Vue.js</span><span class="tg">SQL Server</span></div></div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+
+  <section class="pg" id="experience">
+    <div class="gbg"></div>
+    <div class="sl2 rev">Work History</div>
+    <h2 class="st rev">Where I've <em>worked</em></h2>
+    <div class="ei rev">
+      <div class="et">
+        <div><div class="er">Freelance Full-Stack Developer</div><div class="eco">Self-Employed · Remote · Lagos, Nigeria</div></div>
+        <div class="eb">2023 – Present</div>
+      </div>
+      <ul class="eps">
+        <li>Developed and delivered full-stack web applications for clients across multiple industries — admin dashboards, business websites, and internal management systems.</li>
+        <li>Designed and implemented RESTful APIs using C# and ASP.NET Core for authentication, data management, and business logic integration.</li>
+        <li>Built property management and business workflow systems featuring lease tracking, task management, and reporting dashboards.</li>
+        <li>Improved client application performance by optimizing frontend structure, reducing load times, and enhancing UX and navigation flow.</li>
+        <li>Collaborated directly with clients to gather requirements, deliver iteratively, and maintain long-term project updates.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+
+  <section class="pg" id="education">
+    <div class="sl2 rev">Background</div>
+    <h2 class="st rev">Education & <em>Credentials</em></h2>
+    <div class="edg rev">
+      <div class="edc"><div class="edd">B.Sc. Computer Science <span style="font-size:10px;color:var(--accent)">(In Progress)</span></div><div class="eds">National Open University</div><div class="edy">Jan 2025 – Present</div></div>
+      <div class="edc"><div class="edd">OND — Electrical & Electronics Engineering</div><div class="eds">Moshood Abiola Polytechnic</div><div class="edy">Jan 2016 – Mar 2019</div></div>
+    </div>
+    <div class="cr rev d1">
+      <div class="cc"><span class="ci">🌐</span><div class="cn">Complete Web Development</div></div>
+      <div class="cc"><span class="ci">⚡</span><div class="cn">Complete Vue.js Frontend Dev</div></div>
+      <div class="cc"><span class="ci">◈</span><div class="cn">C# Programming Training</div></div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+
+  <section class="pg" id="contact">
+    <div class="gbg"></div>
+    <div class="sl2 rev">Get in Touch</div>
+    <div class="cl2">
+      <div>
+        <div class="cbig rev">Let's build<br/>something<br/><span>great.</span></div>
+        <p class="csub rev d1">Open to full-time roles, freelance contracts, and collaborations. Let's connect and make something excellent together.</p>
+        <div style="margin-top:26px;" class="rev d2">
+          <button class="bp" onclick="openCV()">📄 Download CV</button>
+        </div>
+      </div>
+      <div class="cr2">
+        <a href="mailto:soetanyusuf359@gmail.com" class="ci2 rev"><span class="ci-icon">✉</span><div><div class="ci-l">Email</div><div class="ci-v">soetanyusuf359@gmail.com</div></div></a>
+        <a href="tel:+2348053816187" class="ci2 rev d1"><span class="ci-icon">📞</span><div><div class="ci-l">Phone</div><div class="ci-v">+234 805 381 6187</div></div></a>
+        <a href="https://github.com/Bobbytee101" target="_blank" class="ci2 rev d2"><span class="ci-icon">⌥</span><div><div class="ci-l">GitHub</div><div class="ci-v">github.com/Bobbytee101</div></div></a>
+        <a href="https://bobbytee-portfolio.vercel.app/" target="_blank" class="ci2 rev d3"><span class="ci-icon">◎</span><div><div class="ci-l">Live Portfolio</div><div class="ci-v">bobbytee-portfolio.vercel.app</div></div></a>
+        <div style="margin-top:4px;font-size:12px;color:var(--muted);" class="rev d4">📍 Lagos, Nigeria · Remote / Hybrid / Onsite</div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- FOOTER -->
+
+<footer>
+  <p>© 2025 Yusuf Soetan · Software Engineer · Lagos, Nigeria</p>
+  <div class="fl">
+    <a href="https://github.com/Bobbytee101" target="_blank">GitHub</a>
+    <a href="mailto:soetanyusuf359@gmail.com">Email</a>
+    <button onclick="openCV()">Download CV</button>
+  </div>
+</footer>
+
+<!-- CV MODAL -->
+
+<div id="cv-modal">
+  <div class="cmbox">
+    <div class="cmh">
+      <div class="cmh-t">Yusuf Soetan — Curriculum Vitae</div>
+      <div class="cma">
+        <button class="cdl" onclick="downloadCV()">⬇ Download</button>
+        <button class="ccl" onclick="closeCV()">✕</button>
+      </div>
+    </div>
+    <div class="cmb">
+      <div class="cvp" id="cv-content">
+        <h1>Soetan Yusuf Olatunji</h1>
+        <div class="cvsub">Software Engineer</div>
+        <div class="cvcon">
+          <span>soetanyusuf359@gmail.com</span>
+          <span>+2348053816187</span>
+          <span>Lagos, Nigeria</span>
+          <span>github.com/Bobbytee101</span>
+          <span>bobbytee-portfolio.vercel.app</span>
+        </div>
+        <div class="cvsh">Professional Summary</div>
+        <p>Software Engineer with experience building scalable web applications using C#, .NET, and JavaScript across both frontend and backend systems. Skilled in developing RESTful APIs, working with databases, and creating responsive user interfaces. Strong problem-solving abilities with a focus on delivering efficient, user-centered solutions and maintainable code.</p>
+        <div class="cvsh">Skills</div>
+        <p style="margin-bottom:5px;color:#555;"><strong style="color:#111">Frontend:</strong></p>
+        <div class="cvsr"><span class="cvsk">HTML5</span><span class="cvsk">CSS3</span><span class="cvsk">JavaScript</span><span class="cvsk">Vue.js</span><span class="cvsk">Bootstrap</span><span class="cvsk">Tailwind CSS</span><span class="cvsk">Responsive Design</span><span class="cvsk">WordPress</span><span class="cvsk">Elementor Pro</span></div>
+        <p style="margin:8px 0 5px;color:#555;"><strong style="color:#111">Backend:</strong></p>
+        <div class="cvsr"><span class="cvsk">C#</span><span class="cvsk">.NET / ASP.NET Core</span><span class="cvsk">RESTful API</span><span class="cvsk">Entity Framework</span><span class="cvsk">LINQ</span><span class="cvsk">JWT</span><span class="cvsk">Microservices</span></div>
+        <p style="margin:8px 0 5px;color:#555;"><strong style="color:#111">Database:</strong></p>
+        <div class="cvsr"><span class="cvsk">SQL Server</span><span class="cvsk">MySQL</span><span class="cvsk">Database Design</span><span class="cvsk">Query Optimization</span></div>
+        <p style="margin:8px 0 5px;color:#555;"><strong style="color:#111">DevOps & Tools:</strong></p>
+        <div class="cvsr"><span class="cvsk">Git & GitHub</span><span class="cvsk">Docker</span><span class="cvsk">CI/CD</span><span class="cvsk">Azure</span><span class="cvsk">AWS (basic)</span><span class="cvsk">Postman</span><span class="cvsk">Visual Studio</span></div>
+        <div class="cvsh">Professional Experience</div>
+        <div class="cvjh"><span class="cvjt">Freelance Frontend & Backend Developer</span><span class="cvjd">2023 – Present</span></div>
+        <div class="cvjco">Self-Employed · Remote · Lagos, Nigeria</div>
+        <ul>
+          <li>Developed and delivered full-stack web applications for clients across different industries, including admin dashboards, business websites, and internal management systems.</li>
+          <li>Designed and implemented RESTful APIs using C# and ASP.NET Core for authentication, data management, and business logic integration.</li>
+          <li>Worked on property management and business workflow systems featuring lease tracking, task management, and reporting dashboards.</li>
+          <li>Improved client application performance by optimizing frontend structure, reducing load times, and enhancing navigation flow and UX.</li>
+          <li>Collaborated directly with clients to gather requirements, deliver features iteratively, and maintain long-term project updates.</li>
+        </ul>
+        <div class="cvsh">Projects</div>
+        <div class="cvph">E-Commerce REST API</div><p>Scalable e-commerce backend using C# and .NET Web API — product management, cart, order processing, payment integration, JWT auth and role-based access control.</p><br/>
+        <div class="cvph">Inventory Management System</div><p>Backend for tracking stock levels, supplier data and sales history, with an admin dashboard for real-time monitoring and reporting.</p><br/>
+        <div class="cvph">Authentication & User Management API</div><p>Secure ASP.NET Core system with JWT tokens, refresh token rotation, password hashing, user registration, login, and role management.</p><br/>
+        <div class="cvph">Admin Dashboard</div><p>Responsive Vue.js admin dashboard for user management and analytics with dynamic charts, tables, and real-time data updates.</p><br/>
+        <div class="cvph">Task Management Web App</div><p>Vue.js task manager with create/update/track, filtering, status updates, and deadline tracking.</p>
+        <div class="cvsh">Education</div>
+        <div class="cver"><span><strong>B.Sc. Computer Science (In Review)</strong> — National Open University</span><span>Jan 2025 – Present</span></div><br/>
+        <div class="cver"><span><strong>OND — Electrical/Electronics Engineering</strong> — Moshood Abiola Polytechnic</span><span>Jan 2016 – Mar 2019</span></div>
+        <div class="cvsh">Certificates</div>
+        <ul><li>Complete Web Development</li><li>Complete Vue.js Frontend Development</li><li>C# Programming Training</li></ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// CURSOR
+const cur=document.getElementById('cur'),ring=document.getElementById('cur-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx-5+'px';cur.style.top=my-5+'px';});
+(function ar(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx-17+'px';ring.style.top=ry-17+'px';requestAnimationFrame(ar);})();
+document.querySelectorAll('a,button').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.style.transform='scale(2.5)';ring.style.transform='scale(1.5)';ring.style.opacity='.8';});
+  el.addEventListener('mouseleave',()=>{cur.style.transform='scale(1)';ring.style.transform='scale(1)';ring.style.opacity='.45';});
+});
+
+// TYPING
+const phrases=['Software Engineer','Full-Stack Developer','API Architect','Vue.js Developer','.NET Specialist'];
+let pi=0,ci=0,del=false;
+const typed=document.getElementById('typed');
+function type(){
+  const p=phrases[pi];
+  if(!del){typed.textContent=p.slice(0,ci+1);ci++;if(ci===p.length){del=true;setTimeout(type,1800);return;}}
+  else{typed.textContent=p.slice(0,ci-1);ci--;if(ci===0){del=false;pi=(pi+1)%phrases.length;}}
+  setTimeout(type,del?55:90);
+}
+setTimeout(type,800);
+
+// REVEALS
+const revs=document.querySelectorAll('.rev');
+const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');obs.unobserve(e.target);}});},{threshold:.1});
+revs.forEach(r=>obs.observe(r));
+document.querySelectorAll('#hero .rev').forEach(el=>setTimeout(()=>el.classList.add('vis'),100));
+
+// SKILL BARS
+const bobs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.querySelectorAll('.bf').forEach(b=>{b.style.width=b.dataset.w+'%';});bobs.unobserve(e.target);}});},{threshold:.3});
+document.querySelectorAll('.bar-list').forEach(bl=>bobs.observe(bl));
+
+// ACTIVE NAV
+const secs=document.querySelectorAll('.pg');
+const navs=document.querySelectorAll('.snav');
+const sob=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){navs.forEach(n=>n.classList.remove('active'));const m=document.querySelector(`.snav[data-s="${e.target.id}"]`);if(m)m.classList.add('active');}});},{threshold:.4});
+secs.forEach(s=>sob.observe(s));
+
+// CV MODAL
+function openCV(){document.getElementById('cv-modal').classList.add('open');document.body.style.overflow='hidden';}
+function closeCV(){document.getElementById('cv-modal').classList.remove('open');document.body.style.overflow='';}
+document.getElementById('cv-modal').addEventListener('click',function(e){if(e.target===this)closeCV();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeCV();});
+
+function downloadCV(){
+  const content=document.getElementById('cv-content').innerHTML;
+  const html=`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Yusuf Soetan - CV</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>body{font-family:'DM Mono',monospace;font-size:11.5px;line-height:1.65;color:#111;padding:40px 44px;max-width:800px;margin:0 auto;}h1{font-family:Georgia,serif;font-weight:800;font-size:22px;letter-spacing:-1px;margin-bottom:2px;}.cvsub{font-size:11px;color:#555;margin-bottom:10px;}.cvcon{display:flex;flex-wrap:wrap;gap:10px;font-size:10.5px;color:#444;margin-bottom:16px;padding-bottom:12px;border-bottom:2px solid #111;}.cvsh{font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#111;border-bottom:1px solid #ddd;padding-bottom:3px;margin:16px 0 9px;}p,li{color:#333;font-size:11px;}ul{padding-left:14px;margin-top:3px;}ul li{margin-bottom:3px;}.cvjh{display:flex;justify-content:space-between;margin-bottom:3px;}.cvjt{font-weight:700;color:#111;font-size:12px;}.cvjd{font-size:10.5px;color:#666;}.cvjco{font-size:10.5px;color:#444;margin-bottom:5px;}.cvsr{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:5px;}.cvsk{background:#f3f3f3;border:1px solid #ddd;font-size:10px;padding:2px 7px;border-radius:2px;color:#333;}.cvph{font-weight:700;font-size:12px;color:#111;margin-bottom:2px;}.cver{display:flex;justify-content:space-between;}strong{color:#111;}</style>
+
+</head><body>${content}</body></html>`;
+  const blob=new Blob([html],{type:'text/html'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='Yusuf_Soetan_CV.html';
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+</script>
+</body>
+</html>
